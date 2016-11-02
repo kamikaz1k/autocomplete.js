@@ -1,0 +1,73 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>AutoComplete</title>
+    <script type="text/javascript" src="autocomplete.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <br>
+    Put stuff here &nbsp
+    <input id="user-input" onchange="inputEntered()">
+    <p id="suggestions"></p>
+</body>
+<script>
+  var dictionary = {}, mAutocomplete = new Autocomplete();
+  var inputElement = document.getElementById("user-input");
+  var suggestions = document.getElementById("suggestions");
+
+  inputElement.addEventListener("keyup", function (e) {
+    var results = mAutocomplete.getSuggestions(this.value);
+    console.log("suggestions", this.value, results);
+    suggestions.innerHTML = results.join("<br>");
+  });
+  /*
+  function addWord (word) {
+    var current = dictionary;
+    for (i in word) {
+      i = word[i];
+      if (current[i]) {
+          current[i].words.push(word);
+
+      } else {
+        current[i] = {
+          words: [word],
+          children: {}
+        };
+      }
+      current = current[i].children
+    }
+  }
+
+  function getSuggestions (pattern) {
+    var current = dictionary, key = "";
+    // for (i = 0; i < pattern.length - 1; i++) {
+    //   key = pattern[i];
+    //   current = current[key].children;
+    // }
+    for (i in pattern.slice(0, pattern.length - 1)) {
+      key = pattern[i];
+      // current = current[key].children;
+      if (current[key]) {
+        current = current[key].children;
+      } else {
+        break;
+      }
+    }
+    
+    if (current[pattern.slice(-1)]) {
+      return current[pattern.slice(-1)].words;
+    } else {
+      return [];
+    }
+  }*/
+
+  function inputEntered () {
+      // console.log("Entered word");
+      var word = inputElement.value;
+      mAutocomplete.addWord(word);
+      console.log("Word entered", word, dictionary);
+  }
+</script>
+</html>
